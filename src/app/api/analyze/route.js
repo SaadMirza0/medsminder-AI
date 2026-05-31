@@ -14,27 +14,21 @@ export async function POST(request) {
     const arrayBuffer = await file.arrayBuffer();
     const base64Image = Buffer.from(arrayBuffer).toString("base64");
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
     
+    const genAI = new GoogleGenerativeAI("AQ.Ab8RN6LmYiKmr0sphqfM6wdhLq3e2PlNL1p92uoUm0TzaXnc4w");
 
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
-      generationConfig: { responseMimeType: "application/json" }
-    });
+ 
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       You are an expert medical assistant. Analyze this prescription image.
-      You must respond with a JSON object containing exactly two keys: "notificationSummary" and "detailedSchedule".
+      You must respond with two clearly separated sections using a double split marker.
       
-      1. For "notificationSummary": Write a very short sentence listing the main medicine name and its immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
-      2. For "detailedSchedule": Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen and tell in clear wording so any one can understand easily short clear instructions .
-
-      Example JSON output format:
-      {
-        "notificationSummary": "Amoxicillin 250mg - Take 3 times daily",
-        "detailedSchedule": "### 📋 Prescription Details\\n- **Amoxicillin 250mg**: Three times a day after food."
-      }
+      Section 1 (Notification Summary): Write a very short, one-sentence summary listing the main medicine name and immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
+      
+      [SPLIT_HERE]
+      
+      Section 2 (Detailed Schedule): Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen in short, clear words.
     `;
 
     const response = await model.generateContent([
@@ -49,11 +43,14 @@ export async function POST(request) {
 
     const replyText = response.response.text();
     
-    const parsedData = JSON.parse(replyText);
+    // Split the text safely using our custom layout marker
+    const parts = replyText.split("[SPLIT_HERE]");
+    const notificationSummary = parts[0] ? parts[0].trim() : "Medication reminder updated.";
+    const detailedSchedule = parts[1] ? parts[1].trim() : replyText;
 
     return new Response(JSON.stringify({ 
-      notificationSummary: parsedData.notificationSummary,
-      detailedSchedule: parsedData.detailedSchedule
+      notificationSummary: notificationSummary,
+      detailedSchedule: detailedSchedule
     }), { 
       status: 200,
       headers: { "Content-Type": "application/json" }
