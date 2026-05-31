@@ -14,21 +14,33 @@ export async function POST(request) {
     const arrayBuffer = await file.arrayBuffer();
     const base64Image = Buffer.from(arrayBuffer).toString("base64");
 
+  
     const apiKey = process.env.GEMINI_API_KEY;
    const genAI = new GoogleGenerativeAI(apiKey);
 
- 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      generationConfig: { responseMimeType: "application/json" }
+    });
 
     const prompt = `
       You are an expert medical assistant. Analyze this prescription image.
-      You must respond with two clearly separated sections using a double split marker.
+      You must respond with a JSON object containing exactly two keys: "notificationSummary" and "detailedSchedule".
       
-      Section 1 (Notification Summary): Write a very short, one-sentence summary listing the main medicine name and immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
-      
-      [SPLIT_HERE]
-      
-      Section 2 (Detailed Schedule): Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen in short, clear words.
+      1. For "notificationSummary": Write a very short sentence listing the main medicine name and its immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
+      2. For "detailedSchedule": Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen like this 
+      📋 Prescription Details 
+      Medication: name
+      Dosage: 
+      Frequency: Once a day
+      Timing: 
+      Quantity: 
+
+      Example JSON output format:
+      {
+        "notificationSummary": "Amoxicillin 250mg - Take 3 times daily",
+        "detailedSchedule": "### 📋 Prescription Details\\n- **Amoxicillin 250mg**: Three times a day after food."
+      }
     `;
 
     const response = await model.generateContent([
@@ -43,14 +55,12 @@ export async function POST(request) {
 
     const replyText = response.response.text();
     
-    // Split the text safely using our custom layout marker
-    const parts = replyText.split("[SPLIT_HERE]");
-    const notificationSummary = parts[0] ? parts[0].trim() : "Medication reminder updated.";
-    const detailedSchedule = parts[1] ? parts[1].trim() : replyText;
+    // Parse the JSON string from Gemini to verify structure
+    const parsedData = JSON.parse(replyText);
 
     return new Response(JSON.stringify({ 
-      notificationSummary: notificationSummary,
-      detailedSchedule: detailedSchedule
+      notificationSummary: parsedData.notificationSummary,
+      detailedSchedule: parsedData.detailedSchedule
     }), { 
       status: 200,
       headers: { "Content-Type": "application/json" }
@@ -63,3 +73,8 @@ export async function POST(request) {
     });
   }
 }
+
+
+
+
+

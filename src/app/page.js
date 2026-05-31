@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown'; 
+import ReactMarkdown from 'react-markdown';
 export default function Home() {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -72,7 +72,7 @@ export default function Home() {
     <main className="min-h-screen bg-slate-50 text-slate-800 px-4 py-10 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         
-   
+        {/* Modern Header Dashboard Panel */}
         <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <div>
             <h1 className="text-blue-600 text-3xl font-extrabold tracking-tight">💊 MedsMinder Dynamic AI</h1>
@@ -91,15 +91,15 @@ export default function Home() {
           </button>
         </header>
 
-
+        {/* Dynamic Two Column Responsive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           
-
+          {/* Left Column Workspace Card */}
           <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-100">
-            <h2 className="text-lg font-bold text-slate-900 mb-5"> Upload Prescription</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-5">1. Upload Prescription</h2>
             
             <form onSubmit={handleSubmit} className="space-y-5">
-    
+              {/* File Dropzone Input Container */}
               <div className="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-8 text-center bg-slate-50 relative transition-colors duration-200 group">
                 <input 
                   type="file" 
@@ -115,13 +115,14 @@ export default function Home() {
                 </div>
               </div>
 
-           
+              {/* Render Image Preview Only If Present */}
               {imagePreview && (
                 <div className="relative rounded-2xl overflow-hidden shadow-inner border border-slate-200">
                   <img src={imagePreview} alt="Preview" className="w-full h-44 object-cover" />
                 </div>
               )}
 
+              {/* Submission Execution Call-to-Action */}
               <button 
                 type="submit" 
                 disabled={loading} 
@@ -131,7 +132,7 @@ export default function Home() {
                     : 'bg-blue-600 hover:bg-blue-700 active:scale-[0.99] shadow-blue-600/10 cursor-pointer'
                 }`}
               >
-                {loading ? 'Extracting True Values...' : 'Analyze !! '}
+                {loading ? 'Extracting True Values...' : '🚀 Analyze & Fire Notification'}
               </button>
             </form>
           </div>
@@ -143,19 +144,23 @@ export default function Home() {
               {loading && <span className="text-xs font-semibold text-blue-600 animate-pulse bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">⚡ AI Engine Executing</span>}
             </h2>
 
+            {/* Application Idle Content Display Wrapper */}
             {!result && !loading && (
               <div className="flex flex-col items-center justify-center flex-1 py-12 text-slate-400">
-            upload image 
-          
+                <span className="text-5xl mb-3 animate-bounce">📡</span>
+                <p className="text-sm font-medium">Pipeline idle. Please stream text records.</p>
               </div>
             )}
 
+            {/* Active AI Processing Loading Block layout */}
             {loading && (
               <div className="space-y-4 text-sm text-slate-500 font-medium flex-1 py-6">
                 <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100 animate-pulse">
                   <span>⏳</span> <p>Parsing prescription image parameters...</p>
                 </div>
-           
+                <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100 animate-pulse delay-150">
+                  <span>🧠</span> <p>Structuring JSON delivery payload matrices...</p>
+                </div>
               </div>
             )}
 
