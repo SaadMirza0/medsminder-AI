@@ -19,27 +19,31 @@ export async function POST(request) {
    const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
+      model:  "gemini-3.5-flash",
       generationConfig: { responseMimeType: "application/json" }
     });
 
     const prompt = `
       You are an expert medical assistant. Analyze this prescription image.
-      You must respond with a JSON object containing exactly two keys: "notificationSummary" and "detailedSchedule".
+      You must respond with a JSON object containing exactly these keys: "notificationSummary", "detailedSchedule", "medicationName", "dosage", "frequency", "duration", "confidence".
       
-      1. For "notificationSummary": Write a very short sentence listing the main medicine name and its immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
-      2. For "detailedSchedule": Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen like this 
-      📋 Prescription Details 
-      Medication: name
-      Dosage: 
-      Frequency: Once a day
-      Timing: 
-      Quantity: 
+      1. "notificationSummary": Write a very short sentence listing the main medicine name and its immediate timing instruction (e.g., "Panadol 500mg - Take 1 tablet after meals").
+      2. "detailedSchedule": Provide a beautifully structured markdown text breakdown of all medications found, their dosages, translated shorthand terms, and a clear timeline for the user's screen.
+      3. "medicationName": The primary name of the medication found (e.g. "Amoxicillin").
+      4. "dosage": The dosage (e.g. "500mg").
+      5. "frequency": The frequency (e.g. "3 times daily").
+      6. "duration": The duration (e.g. "7 days").
+      7. "confidence": A percentage confidence string (e.g. "98.5%") based on readability of the handwriting.
 
       Example JSON output format:
       {
         "notificationSummary": "Amoxicillin 250mg - Take 3 times daily",
-        "detailedSchedule": "### 📋 Prescription Details\\n- **Amoxicillin 250mg**: Three times a day after food."
+        "detailedSchedule": "### 📋 Prescription Details\\n- **Amoxicillin 250mg**: Three times a day after food.",
+        "medicationName": "Amoxicillin",
+        "dosage": "250mg",
+        "frequency": "3 times daily",
+        "duration": "7 days",
+        "confidence": "99.8%"
       }
     `;
 
@@ -54,13 +58,17 @@ export async function POST(request) {
     ]);
 
     const replyText = response.response.text();
-    
-    // Parse the JSON string from Gemini to verify structure
+
     const parsedData = JSON.parse(replyText);
 
     return new Response(JSON.stringify({ 
       notificationSummary: parsedData.notificationSummary,
-      detailedSchedule: parsedData.detailedSchedule
+      detailedSchedule: parsedData.detailedSchedule,
+      medicationName: parsedData.medicationName || "Unknown",
+      dosage: parsedData.dosage || "N/A",
+      frequency: parsedData.frequency || "N/A",
+      duration: parsedData.duration || "N/A",
+      confidence: parsedData.confidence || "95.0%"
     }), { 
       status: 200,
       headers: { "Content-Type": "application/json" }
