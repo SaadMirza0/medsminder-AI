@@ -205,9 +205,12 @@ export default function Home() {
 
 
 
-      
-   {/* Hero Section */}
-<section className="relative pt-20 pb-20 overflow-hidden px-4 md:px-margin-desktop">
+{/* Hero Section */}
+<section className="relative pt-24 pb-24 overflow-hidden px-4 md:px-margin-desktop bg-surface">
+  
+  {/* Performance-Friendly Ambient Background Grid Line Geometry */}
+  <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
   <motion.div 
     initial="hidden"
     whileInView="visible"
@@ -219,11 +222,10 @@ export default function Home() {
         transition: { staggerChildren: 0.12, delayChildren: 0.1 }
       }
     }}
-    className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+    className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10"
   >
     {/* Left Column: Content */}
     <div className="space-y-8">
-      {/* Badge Indicator */}
       <motion.div 
         variants={{
           hidden: { opacity: 0, y: 15 },
@@ -235,7 +237,7 @@ export default function Home() {
         <span className="font-label-md text-label-md text-secondary tracking-wider uppercase">AI-POWERED PRECISION Free</span>
       </motion.div>
 
-      {/* Main Headline */}
+      {/* Headline (Kept standard HTML tags intact for Google crawling bots) */}
       <motion.h1 
         variants={{
           hidden: { opacity: 0, y: 25 },
@@ -243,8 +245,8 @@ export default function Home() {
         }}
         className="font-headline-xl text-[48px] md:text-[64px] leading-tight text-primary font-bold tracking-tight"
       >
-        Doctors' Handwriting, <br />
-        <span className="text-secondary">Finally Readable.</span>
+        Doctors Handwriting, <br />
+        <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">Finally Readable.</span>
       </motion.h1>
 
       {/* Paragraph Subtext */}
@@ -270,15 +272,15 @@ export default function Home() {
           whileHover={{ scale: 1.03, y: -2 }}
           whileTap={{ scale: 0.98 }}
           onClick={scrollToTool} 
-          className="bg-primary text-on-primary px-8 py-4 rounded-xl font-headline-md text-headline-md hover:shadow-xl hover:shadow-primary/20 transition-all border-0 cursor-pointer"
+          className="bg-primary text-on-primary px-8 py-4 rounded-xl font-headline-md text-headline-md hover:shadow-xl hover:shadow-primary/20 transition-all border-0 cursor-pointer font-semibold"
         >
           Get Started Free
         </motion.button>
         <motion.button 
-          whileHover={{ scale: 1.03, bg: "rgba(var(--secondary-rgb), 0.1)" }}
+          whileHover={{ scale: 1.03, bg: "rgba(var(--secondary-rgb), 0.08)" }}
           whileTap={{ scale: 0.98 }}
           onClick={scrollToTool} 
-          className="border border-secondary text-secondary px-8 py-4 rounded-xl font-headline-md text-headline-md transition-all bg-transparent cursor-pointer"
+          className="border border-outline-variant text-primary px-8 py-4 rounded-xl font-headline-md text-headline-md font-semibold transition-all bg-white shadow-sm cursor-pointer"
         >
           View Demo
         </motion.button>
@@ -293,51 +295,115 @@ export default function Home() {
         className="flex items-center gap-4 pt-8 text-on-surface-variant"
       >
         <div className="flex -space-x-3">
-          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-container shadow-sm"></div>
-          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high shadow-sm"></div>
-          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-dim shadow-sm"></div>
+          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-container shadow-sm flex items-center justify-center text-[10px] font-bold text-outline">MD</div>
+          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high shadow-sm flex items-center justify-center text-[10px] font-bold text-outline">RPh</div>
+          <div className="w-10 h-10 rounded-full border-2 border-surface bg-surface-dim shadow-sm flex items-center justify-center text-[10px] font-bold text-outline">NP</div>
         </div>
-        <p className="font-body-sm text-body-sm">Trusted by thousands of patients</p>
+        <p className="font-body-sm text-body-sm font-medium">Trusted by thousands of patients</p>
       </motion.div>
     </div>
 
-    {/* Right Column: Visual Mockup Showcase */}
+    {/* Right Column: Upgraded Live Interactive AI Diagnostics (Matches Sent Image) */}
     <motion.div 
       variants={{
-        hidden: { opacity: 0, scale: 0.95, x: 30 },
+        hidden: { opacity: 0, scale: 0.96, x: 30 },
         visible: { opacity: 1, scale: 1, x: 0, transition: { type: "spring", damping: 20, duration: 0.7 } }
       }}
-      className="relative"
+      className="relative flex items-center justify-center min-h-[460px]"
     >
-      {/* Dynamic Background Glow Effect */}
+      {/* Aurora Radial Blur Backing */}
       <motion.div 
         animate={{
           scale: [1, 1.1, 1],
-          opacity: [0.5, 0.8, 0.5]
+          opacity: [0.5, 0.7, 0.5]
         }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute -inset-4 bg-secondary/10 rounded-3xl blur-3xl"
-      ></motion.div>
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[85%] h-[85%] bg-gradient-to-tr from-secondary/15 to-primary/5 rounded-full blur-3xl pointer-events-none z-0"
+      />
 
-      {/* Main Image Container */}
+      {/* Left Backplate Layer: Messy Prescription Note */}
       <motion.div 
-        whileHover={{ y: -6, rotate: 0.5 }}
-        transition={{ type: "spring", stiffness: 150, damping: 15 }}
-        className="relative rounded-2xl border border-outline-variant overflow-hidden shadow-2xl bg-surface"
+        animate={{ y: [-4, 4, -4], rotate: [-2, -1, -2] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute left-0 top-8 w-60 bg-white border border-outline-variant rounded-xl p-5 shadow-lg z-10 hidden sm:block select-none"
       >
-        <img 
-          alt="Modern medical interface deciphering handwriting" 
-          className="w-full h-auto object-cover" 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs6gpal0i_wWichgJ_zrkIT4FAuhQkU_xqQ0qBGGPo1Hupy0NaGihY6si_STh4q_QWLNzva19FKhAFKagmf5s9Ph1bph1rHekqPJ9fVXCMmCrU0Lrpx7otfl52XdcxX2gudxYnxj8QlU5ixN2QMaqq_bTvrqc1H-SL79qZA4Jr7bbbR2QhNgG_GuYN-Nx_c91B338hbCWCa0AFixR4-3yGNXQfyIU0VUSrEOcrZY28smQuIc8isyl8RTAE5O1R0nibNqbRKjlblw" 
-        />
+        <div className="flex items-center justify-between mb-4 pb-2 border-b border-outline-variant/60">
+          <span className="font-serif text-lg font-extrabold text-outline tracking-wider">Rx Note</span>
+          <span className="text-[11px] font-mono text-outline/40">#4819-B</span>
+        </div>
+        <div className="space-y-3 font-serif text-primary/60 italic leading-relaxed text-[13px]">
+          <p className="m-0 border-b border-dashed border-outline-variant pb-1">Patient: John Doe</p>
+          <p className="m-0 font-bold text-primary/80 tracking-wide pt-1">Amoxicillin 500mg <br /> 1 tablet twice daily</p>
+          <p className="m-0 font-bold text-primary/80 tracking-wide pt-1">Atorvastatin 20mg <br /> 1 tablet daily</p>
+        </div>
+      </motion.div>
+
+      {/* Right Frontplate Layer: Smartphone Reader Simulator Screen */}
+      <motion.div 
+        animate={{ y: [4, -4, 4] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        whileHover={{ scale: 1.02 }}
+        className="w-64 h-[430px] bg-slate-900 rounded-[38px] p-3 shadow-2xl relative z-20 border-4 border-slate-800 ml-0 sm:ml-40"
+      >
+        {/* Device Notch */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-800 rounded-full z-30" />
+
+        {/* Live Interface Layout */}
+        <div className="w-full h-full bg-white rounded-[30px] overflow-hidden p-4 pt-8 flex flex-col justify-between relative text-left select-none">
+          
+          {/* Active Running Laser Trace Engine Line */}
+          <motion.div 
+            animate={{ top: ["8%", "90%", "8%"] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-secondary to-transparent z-40 pointer-events-none"
+          />
+
+          <div className="space-y-4">
+            <div className="flex justify-between items-center pb-2 border-b border-outline-variant/60">
+              <span className="text-[10px] font-bold text-primary tracking-wider uppercase">PRESCRIPTION</span>
+              <div className="flex items-center gap-1 bg-secondary/10 text-secondary text-[9px] font-extrabold px-1.5 py-0.5 rounded">
+                <span className="w-1 h-1 bg-secondary rounded-full animate-pulse" />
+                EXTRACTED
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="bg-surface-container-low p-2 rounded-lg border border-outline-variant/40">
+                <p className="text-[9px] font-bold text-outline uppercase m-0 tracking-wide">Patient context</p>
+                <p className="text-xs font-bold text-primary m-0">Patient: John Doe</p>
+                <p className="text-[11px] text-on-surface-variant m-0">Dr. A. Chen</p>
+              </div>
+
+              <div className="space-y-2.5 pl-0.5">
+                <div className="border-l-2 border-l-secondary pl-2">
+                  <p className="text-[9px] font-bold text-outline uppercase m-0 tracking-wide">Rx</p>
+                  <p className="text-xs font-bold text-primary m-0">Amoxicillin 500mg</p>
+                  <p className="text-[11px] text-on-surface-variant m-0">1 tablet twice daily</p>
+                </div>
+
+                <div className="border-l-2 border-l-primary pl-2">
+                  <p className="text-[9px] font-bold text-outline uppercase m-0 tracking-wide">Rx</p>
+                  <p className="text-xs font-bold text-primary m-0">Atorvastatin 20mg</p>
+                  <p className="text-[11px] text-on-surface-variant m-0">1 tablet daily</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-outline-variant/40 flex justify-between items-center text-[10px]">
+            <span className="text-outline font-medium">Data Integrity:</span>
+            <span className="text-emerald-600 font-bold flex items-center gap-0.5">
+              <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+              99.3% Accurate
+            </span>
+          </div>
+
+        </div>
       </motion.div>
     </motion.div>
   </motion.div>
 </section>
+
 
 
      {/* image reader section  */}
