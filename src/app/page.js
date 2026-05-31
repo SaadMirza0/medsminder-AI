@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-
+import ReactMarkdown from 'react-markdown'; 
 export default function Home() {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -167,8 +167,21 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-600 mb-2 tracking-wide uppercase">📋 AI Generated Schedule Output:</h3>
-                  <div className="whitespace-pre-wrap leading-relaxed text-sm text-slate-700 bg-slate-50 p-5 rounded-2xl border border-slate-200 font-mono shadow-inner max-h-[300px] overflow-y-auto">
-                    {result}
+                    <div className="prose prose-slate max-w-none text-sm leading-relaxed text-slate-700 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-inner max-h-[450px] overflow-y-auto">
+                    <ReactMarkdown 
+                      components={{
+                        h1: ({node, ...props}) => <h1 className="text-xl font-bold text-blue-600 mb-2" {...props} />,
+                        h2: ({node, ...props}) => <h2 className="text-lg font-bold text-slate-900 mt-4 mb-2" {...props} />,
+                        h3: ({node, ...props}) => <h3 className="text-base font-bold text-slate-800 mt-3 mb-1" {...props} />,
+                        ul: ({node, ...props}) => <ul className="list-disc pl-5 space-y-1 my-2" {...props} />,
+                        ol: ({node, ...props}) => <ol className="list-decimal pl-5 space-y-1 my-2" {...props} />,
+                        li: ({node, ...props}) => <li className="text-slate-700" {...props} />,
+                        strong: ({node, ...props}) => <strong className="font-bold text-slate-900" {...props} />,
+                        em: ({node, ...props}) => <em className="italic text-slate-500" {...props} />,
+                      }}
+                    >
+                      {result}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>

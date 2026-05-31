@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💊 MedsMinder AI — Intelligent Clinical Automation & Native Alert Engine
 
-## Getting Started
+MedsMinder AI is a fully functional, high-impact healthcare solution designed for the **Beyond Tomorrow Hackathon 2026**. It sits at the intersection of **Healthcare Technology**, **Smart Automation**, and **Artificial Intelligence**.
 
-First, run the development server:
+The platform targets medical non adherence by enabling users to upload messy, handwritten prescriptions or pill bottle labels. An intelligent backend pipeline extracts clinical data and seamlessly delivers real-time, operating system-level native notification alerts straight to the patient.
 
+---
+
+## 🚀 Core Features
+
+- **AI Vision Parsing Engine**: Leverages advanced multimodal AI to parse unstructured handwritten ink layers and medical shorthand (e.g., BD, PRN, AC, PC).
+- **Structured JSON Synthesis**: Constraints the LLM generation payload using strict JSON formatting schema mapping to isolate system notification text from deep user-facing markdown text.
+- **Native Web Push Automation**: Uses the native browser Notification API to push dynamic operating-system-level notifications directly onto the desktop frame environment.
+- **Responsive Dashboard Layout**: Built with a responsive, utility-first design utilizing Tailwind CSS optimized for modern cross-platform usability.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Frontend Interface**: Next.js 16 (App Router, React Server & Client Components)
+- **Styling & Animation Layout**: Tailwind CSS
+- **Machine Learning Architecture**: Google Gemini 2.5 Flash API (`@google/generative-ai`)
+- **Runtime & Compilation Pipeline**: Node.js & Turbopack Core Compiler
+
+---
+
+## 📐 System Workflow Architecture
+
+[User Interface (Next.js/Tailwind)]│▼ (FormData Image Payload)[Secure Dynamic Backend Route (/api/analyze)]│▼ (Base64 Binary Buffer Translation)[Google Gemini 2.5 Flash API]│▼ (Enforced Response MimeType: Structured JSON)[Dynamic Value Extraction Node]───────┴───────│               │▼               ▼[Detailed Markdown]   [Real-time Notification Summary]│               │▼               ▼(Rendered on Screen)  (Native OS Notification Fired Instantly)
+
+
+
+---
+
+## ⚙️ Local Installation & Development
+
+Follow these steps to run the complete architectural instance locally on your developer machine:
+
+### 1. Clone and Navigate to Project
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com
+cd medsminder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Project Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Setup Your Secure Key
+Create a `.env.local` file in the project root directory:
+```text
+GEMINI_API_KEY=your_actual_api_key_here
+```
+*(Note: For rapid verification loops during development, keys can also be securely initialized natively within the API node constructor).*
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Boot up local Development Server
+```bash
+npm run dev
+```
+Open **`http://localhost:3000`** within your browser to experience the functional deployment matrix.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Alignment with Hackathon Criteria (25% Each)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Innovation & Creativity (25%)**: Transforms standard text extraction into an adaptive translation tool that simplifies confusing professional Latin clinical codes into readable layman instructions.
+2. **Technical Implementation (25%)**: Implements a clean Next.js architecture separating UI rendering from API orchestration, using Base64 binary file stream processing safely on the server side.
+3. **Real-World Impact & Scalability (25%)**: Directly fights low medical literacy and high prescription misread frequencies in emerging markets. Easily scalable to Twilio SMS gateways, Web3 record ledgers, or watchOS complications.
+4. **Design & Presentation (25%)**: Features an interactive layout complete with dropzone triggers, image state caching, animated pulse engine indicators, and immediate, real native notification pings to eliminate conceptual friction for the judging panel.
