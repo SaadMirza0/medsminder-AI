@@ -14,7 +14,8 @@ export async function POST(request) {
     const arrayBuffer = await file.arrayBuffer();
     const base64Image = Buffer.from(arrayBuffer).toString("base64");
 
-    const genAI = new GoogleGenerativeAI("AQ.Ab8RN6LKNY6zRCmwDETwC3TZh870_koojUyBUP52DRbFRLaOXw");
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
     
 
     const model = genAI.getGenerativeModel({ 
